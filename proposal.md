@@ -15,7 +15,8 @@ Our dashboard will be visualizing a dataset describing Spotify's music data. Thi
 
 ### Research questions and usage scenarios
 
-Enter text here
+The research questions are what feature characteristics of a song are strongly related to its popularity. Which artists are popular these years? What are the characteristics of their songs?
+The target users for our dashboard are business analysts, product content managers, Music Mission Product Insights Team from spotify. They will use our dashboard to explore the current trend of popularity of different singers and make decisions on building partnerships with artists. For example, Lucy is a Music Content Manager, her daily work is to collect music contents with high popularity and establish business relationship with target artists. To find popular songs she needs to explore musics with high popularity score, and identify characterisrics most relevant to those liked songs. When she uses our dashboard plateform, she can clearly see the relationship between song features and popularity score, from which she's able to select songs based on their features. she will rank artists based on their popularity and find their popularity trend over years to decide whether she needs to reach out to those artists for purchasing music license or coorporate with them for creating unique contents on the plateform of spotify. 
 
 
 
