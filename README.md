@@ -1,6 +1,6 @@
 # spotify-explorer-py
 
-Spotify explorer is a dashboard implemented in Dash in order to help business analysts, product content managers visualize and understand the current trends in the music industry through the spotify dataset. 
+Spotify Explorer is a dashboard implemented in Dash in order to help business analysts, product content managers visualize and understand the current trends in the music industry through the Spotify dataset. 
 
 ## Dashboard description
 
