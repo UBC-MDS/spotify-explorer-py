@@ -12,7 +12,7 @@ The app contains a landing page that shows 4 graphs and a single tool box for co
 - Popularity Trend of Specific Artists across time
     * The user on choosing a specific artist from a different down drop list, will be provided with a line chart of the artist's avergae popularity score over the years.
 - Popularity Distribution of Specific Artists 
-    * Based on the artist chosen from the previous drop down list, this plot will show the distribution of the Artist's popluarity score. This helps the user identify the artist's popularity score across their songs.
+    * Based on the artist chosen from the previous drop down list, this plot will show the distribution of the Artist's popularity score. This helps the user identify the artist's popularity score across their songs.
 - Popular Song Characteristics
     * Finally, a seperate drop down list for song characteristics help users choose from a list of attributes such as `loudness`, `danceability`, etc. The plot then shows the relationship of the chosen attribute with `popularity` through a scatter plot.
 
