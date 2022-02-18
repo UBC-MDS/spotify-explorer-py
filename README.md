@@ -10,7 +10,7 @@ The app contains a landing page that shows 4 graphs and a single tool box for co
     * Here the user can select a particular `genre` of music by using the drop down list for genre located on the left hand side of the dashboard. 
     * The plot shows the artist and their corresponding popularity score for the specific genre.
 - Popularity Trend of Specific Artists across time
-    * The user on choosing a specific artist from a different down drop list, will be provided with a line chart of the artist's avergae popularity score over the years.
+    * The user on choosing a specific artist from a different down drop list, will be provided with a line chart of the artist's average popularity score over the years.
 - Popularity Distribution of Specific Artists 
     * Based on the artist chosen from the previous drop down list, this plot will show the distribution of the Artist's popularity score. This helps the user identify the artist's popularity score across their songs.
 - Popular Song Characteristics
