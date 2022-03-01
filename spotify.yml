@@ -1,0 +1,14 @@
+name: "spotify-ex"
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - altair
+  - vega_datasets
+  - ipykernel
+  - ipython>=7.15
+  - pip
+  - pip:
+      - dash
+      - docopt
+      - dash_bootstrap_components
