@@ -34,7 +34,7 @@ def popular_non_popular_line():
 app = Dash(
     __name__,
     title="Spotify Explorer",
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    external_stylesheets=[dbc.themes.MORPH],
     suppress_callback_exceptions=True,
 )
 server = app.server
