@@ -1,0 +1,7 @@
+pandas
+gunicorn
+altair
+dash
+altair-data-server
+dash_bootstrap_components
+docopt
