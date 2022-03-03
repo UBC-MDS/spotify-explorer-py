@@ -11,7 +11,7 @@ import dash_bootstrap_components as dbc
 today = datetime.now()
 formatted_date = today.strftime("%b %d, %Y")
 SPOTIFY_LOGO = "assets/img/spotify-ex.png"
-df = pd.read_csv("../data/raw/spotify.csv", parse_dates=['track_album_release_date'])
+df = pd.read_csv("data/raw/spotify.csv", parse_dates=['track_album_release_date'])
 df.dropna(inplace=True)
 
 # Styling

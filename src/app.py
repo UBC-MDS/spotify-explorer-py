@@ -1,4 +1,4 @@
-# author: Christopher Alexander, Jennifer Hoang, Michelle, Thea Wenxin
+# author: Christopher Alexander, Jennifer Hoang, Michelle Wang, Thea Wenxin
 # date: 2022-03-01
 
 import altair as alt
@@ -11,7 +11,7 @@ import layout_components as lc
 alt.data_transformers.disable_max_rows()
 
 # Read raw data
-df = pd.read_csv("../data/raw/spotify.csv", parse_dates=['track_album_release_date'])
+df = pd.read_csv("data/raw/spotify.csv", parse_dates=['track_album_release_date'])
 df.dropna(inplace=True)
 
 # Set up app frontend
@@ -56,11 +56,13 @@ def artist_trend_plot(track_artist = 'Ed Sheeran'):
     if track_artist != "Ed Sheeran":
         trend_data = df.query("track_artist == @track_artist")
         
-    chart = alt.Chart(trend_data).mark_line().encode(
+    c1 = alt.Chart(trend_data).mark_line().encode(
         alt.X('track_album_release_date', axis=alt.Axis(title="Album release date")),
-        alt.Y('mean(track_popularity)', axis=alt.Axis(title="Popularity")))\
-            .properties(height=250, width=350, background='#eeeeef')
-        #tooltip=track_artist).interactive()
+        alt.Y('mean(track_popularity)', axis=alt.Axis(title="Popularity"))
+    )
+    
+    chart = c1 + c1.mark_point()
+   # chart.properties(height=300, width=350, background='#eeeeef')
     return chart.to_html()
 
 ## Plot3
@@ -72,39 +74,6 @@ def popular_non_popular_line():
     pass
 
 
-
-
-
-
-
-
-
-
-@app.callback(Output("artist_genre_bar_id", "srcDoc"), Input("genre", "value"))
-def top_artists(genre):
-    top10_data = (
-        df.query("playlist_genre == @genre")
-        .groupby(["track_artist"])
-        .mean("track_popularity")
-        .nlargest(10, "track_popularity")
-        .reset_index()
-    )
-    click = alt.selection_multi()
-
-    chart = (
-        alt.Chart(top10_data)
-        .mark_bar()
-        .encode(
-            x=alt.X(
-                "track_popularity", axis=alt.Axis(title="Average Track Popularity")
-            ),
-            y=alt.Y("track_artist", sort="-x", axis=alt.Axis(title="Artist")),
-            opacity=alt.condition(click, alt.value(0.9), alt.value(0.2)),
-            tooltip="track_popularity"
-        )
-        .add_selection(click)
-    )
-    return chart.to_html()
 
 if __name__ == "__main__":
     app.run_server(debug=True)
