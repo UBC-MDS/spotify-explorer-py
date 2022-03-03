@@ -33,12 +33,17 @@ def get_artist_section():
                     "border": "0px",
                 },
             ),
+            html.H3("Artist Genre:", className="display-30"),
+            dcc.Dropdown(
+                id='genre',
+                value='pop',
+                options=['edm', 'latin', 'pop', 'r&b', 'rap', 'rock']),
         ]
     )
 
     plot_1_settings = dbc.Col(
         [
-            html.H1("Plot 1 with Artist/Genre", className="display-30"),
+            html.H1("Top 10 Artists by Genre", className="display-30"),
             # Pseudo code for plot specfication, pleae modify
             html.Iframe(
                 id="artist_genre_bar_id",
