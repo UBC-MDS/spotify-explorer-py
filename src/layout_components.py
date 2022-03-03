@@ -64,6 +64,7 @@ def get_artist_section():
                     "border": "0px",
                 }
             ),
+
             html.H5("Artist Name:"),
             dcc.Dropdown(
                 id='artist_selection',
@@ -72,11 +73,13 @@ def get_artist_section():
                 options=[{'label': name, 'value': name} for name in df['track_artist'].unique().tolist()])
         ],
     width=3
+
     )
 
     plot_1_settings = dbc.Col(
         [
             html.H4("Plot 1 w Artist/Genre", className="display-30"),
+
             # Pseudo code for plot specfication, pleae modify
             html.Iframe(
                 id="artist_genre_bar_id",
