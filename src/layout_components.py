@@ -82,7 +82,7 @@ def get_artist_section():
 
     plot_1_settings = dbc.Col(
         [
-            html.H4("Plot 1 w Artist/Genre", className="display-30"),
+            html.H4("Top Artists by Genre", className="display-30"),
 
             # Pseudo code for plot specfication, pleae modify
             html.Iframe(
