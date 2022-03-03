@@ -40,8 +40,30 @@ def switch_tab(tab_id):
 # Plots -------------
 
 ## Plot1
-def top_artists():
-    pass
+@app.callback(Output("artist_genre_bar_id", "srcDoc"), Input("genre", "value"))
+def top_artists(genre):
+     top10_data = (
+         df.query("playlist_genre == @genre")
+         .groupby(["track_artist"])
+         .mean("track_popularity")
+         .nlargest(10, "track_popularity")
+         .reset_index()
+     )
+     click = alt.selection_multi()
+
+     chart = (
+         alt.Chart(top10_data)
+         .mark_bar()
+         .encode(
+             x=alt.X(
+                 "track_popularity", axis=alt.Axis(title="Average Track Popularity")
+             ),
+             y=alt.Y("track_artist", sort="-x", axis=alt.Axis(title="Artist")),
+             opacity=alt.condition(click, alt.value(0.9), alt.value(0.2)),
+             tooltip="track_popularity"
+         ).add_selection(click)
+     )
+     return chart.to_html()
 
 ## Plot2
 @app.callback(

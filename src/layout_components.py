@@ -64,7 +64,11 @@ def get_artist_section():
                     "border": "0px",
                 }
             ),
-
+            html.H5("Artist Genre:"),
+            dcc.Dropdown(
+                 id='genre',
+                 value='pop',
+                 options=['edm', 'latin', 'pop', 'r&b', 'rap', 'rock']),
             html.H5("Artist Name:"),
             dcc.Dropdown(
                 id='artist_selection',
