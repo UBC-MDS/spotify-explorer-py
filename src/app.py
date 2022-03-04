@@ -3,6 +3,7 @@
 
 import altair as alt
 import pandas as pd
+import numpy as np
 from dash import Dash, dcc, html, Input, Output
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
@@ -120,8 +121,38 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
 
 
 ## Plot4
-def popular_non_popular_line():
-    pass
+@app.callback(
+    Output("pop_unpop_id", "srcDoc"),
+    Input("genres", "value"),
+    Input("xcol-widget", "value"),
+)
+def popular_non_popular_line(genre, feat):
+    data_pop = df
+    data_pop["Duration (min)"] = data_pop["duration_ms"] / 60000
+    data_pop["Popularity class"] = np.where(
+        data_pop["track_popularity"] <= data_pop["track_popularity"].median(),
+        "Not popular",
+        "Popular",
+    )
+    data_pop["Genres"] = data_pop["playlist_genre"].replace(
+        ["edm"], ["electronic dance music"]
+    )
+    data_pop_query = data_pop.query("Genres == @genre")
+    chart = (
+        alt.Chart(data_pop_query)
+        .mark_line(interpolate="monotone")
+        .encode(
+            alt.X(feat, bin=alt.Bin(maxbins=30), title=f"{feat.title()}"),
+            y="count()",
+            color="Popularity class",
+        )
+        .configure_axis(labelFontSize=14, titleFontSize=14)
+        .configure_legend(titleFontSize=14)
+        .configure_title(fontSize=18)
+        .properties(height=280, width=450)
+    )
+
+    return chart.to_html()
 
 
 if __name__ == "__main__":

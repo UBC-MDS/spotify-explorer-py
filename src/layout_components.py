@@ -2,6 +2,7 @@
 # date: 2022-03-01
 
 import pandas as pd
+import numpy as np
 from datetime import datetime
 from dash import Dash, dcc, html, Input, Output
 from dash.dependencies import Input, Output, State
@@ -72,13 +73,15 @@ def get_artist_section():
             dcc.Dropdown(
                 id="genre",
                 value="pop",
+                style={"border-width": "0", "width": "100%"},
                 options=["edm", "latin", "pop", "r&b", "rap", "rock"],
             ),
+            html.Br(),
             html.H5("Artist Name:"),
             dcc.Dropdown(
                 id="artist_selection",
                 value="Ed Sheeran",  # REQUIRED to show the plot on the first page load
-                style={"border-width": "0", "width": "70%"},
+                style={"border-width": "0", "width": "100%"},
                 options=[
                     {"label": name, "value": name}
                     for name in df["track_artist"].unique().tolist()
@@ -166,7 +169,44 @@ def get_popularity_section():
     """
     sidebar_widgets = dbc.Col(
         children=[
-            html.H1("Sidebar widgets", className="display-30"),
+            html.H2("Explore music characteristics", className="display-30"),
+            html.Br(),
+            html.H5("Music Features:"),
+            dcc.Dropdown(
+                id="xcol-widget",
+                style={"border-width": "0", "width": "100%"},
+                options=[
+                    {"label": "Danceability", "value": "danceability"},
+                    {"label": "Energy", "value": "energy"},
+                    {"label": "Loudness", "value": "loudness"},
+                    {"label": "Acousticness", "value": "acousticness"},
+                    {"label": "Speechiness", "value": "speechiness"},
+                    {"label": "Instrumentalness", "value": "instrumentalness"},
+                    {"label": "Liveness", "value": "liveness"},
+                    {"label": "Valence", "value": "valence"},
+                    {"label": "Tempo", "value": "tempo"},
+                    {"label": "Duration (min)", "value": "Duration (min)"},
+                ],
+                value="danceability",
+            ),
+            html.Br(),
+            html.H5("Music Genres:"),
+            dcc.Dropdown(
+                id="genres",
+                style={"border-width": "0", "width": "100%"},
+                options=[
+                    {
+                        "label": "Electronic dance music",
+                        "value": "electronic dance music",
+                    },
+                    {"label": "Pop", "value": "pop"},
+                    {"label": "Rap", "value": "rap"},
+                    {"label": "Rock", "value": "rock"},
+                    {"label": "Latin", "value": "latin"},
+                    {"label": "R&B", "value": "r&b"},
+                ],
+                value="electronic dance music",
+            ),
             html.Iframe(
                 id="widget_id2",
                 style={
@@ -181,17 +221,25 @@ def get_popularity_section():
 
     plot_4_settings = dbc.Col(
         [
-            html.H1("Plot 4 song characteristics", className="display-30"),
-            # Pseudo code for plot specfication, pleae modify
+            html.H3(
+                "Song characteristics distribution between two popularity classes",
+                className="display-30",
+            ),
             html.Iframe(
                 id="pop_unpop_id",
                 style={
                     "width": "100%",
-                    "height": "350px",
+                    "height": "450px",
+                    "padding-left": "80px",
                     "border": "0px",
                 },
             ),
-        ]
+        ],
+        style={
+            "width": "100%",
+            "height": "520px",
+            "border": "0px",
+        },
     )
 
     section = html.Div([dbc.Row(children=[sidebar_widgets, plot_4_settings])])
