@@ -13,7 +13,7 @@ Below are just a couple of potential problem-solving scenarios to achieve these 
 
 - Music listeners may want to dive more into new music with a specific genre. Our app can display top popular atists belonging to that genre and listeners can try out listening to those artists, thereby discovering new music they may like.
 
-- Business executives can use our tool to find trends in popularity of artists over the past few years, and decide whether to pursue contract extension with specific artists (based on the artist's performance). If they're interested to zoom into any specific artist, the histogram plot would be able to tell them what the distribution of popularity looks like for that artist. For example, if they prefer to pursue an artist with less variability in popularity, they can infer that from the plot.
+- Business executives can use our tool to find trends in popularity of artists over the past few years, and decide whether to pursue contract extension with specific artists (based on the artist's performance). If they're interested to zoom into any specific artist, the histogram plot would be able to tell them what the distribution of popularity looks like for that artist. For example, if they prefer to pursue an artist with less variability in popularity, they can infer that from the plot. They can also explore the relationship between music characteristics distribution and popularity classes to gain insights on the music track features influencing the popularity scoring from customers and act on them in the future music content collection.
 
 ## Dashboard description
 
@@ -37,11 +37,14 @@ Finally, a seperate drop down list for song characteristics help users choose fr
 ## If you want to help further develop the app
 1. Fork [the repository](https://github.com/UBC-MDS/spotify-explorer-py/)
 2. Set up conda environment as follows
-```
+```bash
 $ conda env create -f spotify.yml
+$ conda activate spotify-ex
 ```
 3. To run the app locally, run the following command from the root of this repository   
-   `python src/app.py`
+```python
+python src/app.py
+```
 4. Create an issue on this repo to inform the Team about the changes/improvements you want to make. See **Contributing** section below for more details.
 
 ## Contributing
