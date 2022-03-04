@@ -22,8 +22,11 @@ selection to the "Artist Trend" and "Artist Popularity Record" plots.
 
 Additionally, there are improvements that could be made to the overall layout and user interface design. 
 The sizing of plots and the font size of the axes could be increased to improve the aesthetics and readability. 
-The positioning of the widgets in the sidebar could also be adjusted in the first tab, 
-so that it is more intuitive for users to distinguish the widgets that are associated with each plot.
+The layout of the sidebar and plots could also be improved to work with different window sizes.
+
+Lastly, we have created our dashboard for target users that work at Spotify under the assumption that they are familiar 
+with the metrics used. However, it would be useful for a lay audience to provide additional information in "Cards"
+to explain the metrics in our dataset, such as "Track Popularity" or "Danceability".
 
 ### Limitations
 Current limitations of our dashboard are that the data is static and it does not integrate new songs and data from Spotify.
