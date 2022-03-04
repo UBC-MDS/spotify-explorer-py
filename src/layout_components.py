@@ -61,14 +61,7 @@ def get_artist_section():
                 genres and song types in Spotify. Happy exploring!",
                 className="display-30",
             ),
-            html.Iframe(
-                id="widget_id",
-                style={
-                    "width": "100%",
-                    "height": "100px",
-                    "border": "0px",
-                },
-            ),
+            html.Br(),
             html.H5("Artist Genre:"),
             dcc.Dropdown(
                 id="genre",
@@ -76,6 +69,11 @@ def get_artist_section():
                 style={"border-width": "0", "width": "100%"},
                 options=["edm", "latin", "pop", "r&b", "rap", "rock"],
             ),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
             html.Br(),
             html.Br(),
             html.H5("Artist Name:"),
