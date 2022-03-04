@@ -229,11 +229,17 @@ def get_popularity_section():
                 id="pop_unpop_id",
                 style={
                     "width": "100%",
-                    "height": "350px",
+                    "height": "450px",
+                    "padding-left": "80px",
                     "border": "0px",
                 },
             ),
-        ]
+        ],
+        style={
+            "width": "100%",
+            "height": "520px",
+            "border": "0px",
+        },
     )
 
     section = html.Div([dbc.Row(children=[sidebar_widgets, plot_4_settings])])

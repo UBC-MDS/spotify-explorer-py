@@ -120,7 +120,6 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
     return result.to_html()
 
 
-
 ## Plot4
 @app.callback(
     Output("pop_unpop_id", "srcDoc"),
@@ -140,10 +139,7 @@ def popular_non_popular_line(genre, feat):
     )
     data_pop_query = data_pop.query("Genres == @genre")
     chart = (
-        alt.Chart(
-            data_pop_query,
-            title=f"Distribution of {feat} over Popular and Not popular songs in {genre}",
-        )
+        alt.Chart(data_pop_query)
         .mark_line(interpolate="monotone")
         .encode(
             alt.X(feat, bin=alt.Bin(maxbins=30), title=f"{feat.title()}"),
@@ -153,9 +149,11 @@ def popular_non_popular_line(genre, feat):
         .configure_axis(labelFontSize=14, titleFontSize=14)
         .configure_legend(titleFontSize=14)
         .configure_title(fontSize=18)
+        .properties(height=280, width=450)
     )
 
     return chart.to_html()
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)
