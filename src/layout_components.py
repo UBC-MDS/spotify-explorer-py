@@ -123,12 +123,12 @@ def get_artist_section():
 
     plot_3_settings = dbc.Col(
         [
-            html.H4("Plot 3 with Artist pop histogram", className="display-30"),
+            html.H4("Artist's popularity record", className="display-30"),
             # Pseudo code for plot specfication, pleae modify
             html.Iframe(
                 id="artist_pop_hist_id",
                 style={
-                    "width": "50%",
+                    "width": "100%",
                     "height": "350px",
                     "border": "0px",
                 },

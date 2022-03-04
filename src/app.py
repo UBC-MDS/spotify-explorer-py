@@ -96,8 +96,29 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
 
 
 ## Plot3
-def artist_popularity_hist():
-    pass
+@app.callback(
+    Output("artist_pop_hist_id", "srcDoc"), Input("artist_selection", "value")
+)
+def artist_popularity_hist(track_artist="Ed Sheeran"):
+    chart = (
+        alt.Chart(df.query("track_artist == @track_artist"))
+        .mark_bar()
+        .encode(
+            x=alt.X("track_popularity", bin=True, title="Track popularity"),
+            y=alt.Y("count()"),
+            tooltip=alt.Tooltip("count()"),
+        )
+    )
+
+    rule = (
+        alt.Chart(df.query("track_artist == @track_artist"))
+        .mark_rule(color="red")
+        .encode(x="mean(track_popularity):Q")
+    )
+
+    result = (chart + rule).properties(width=300, height=280)
+    return result.to_html()
+
 
 
 ## Plot4
@@ -135,7 +156,6 @@ def popular_non_popular_line(genre, feat):
     )
 
     return chart.to_html()
-
 
 if __name__ == "__main__":
     app.run_server(debug=True)
