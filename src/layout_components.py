@@ -11,7 +11,7 @@ import dash_bootstrap_components as dbc
 today = datetime.now()
 formatted_date = today.strftime("%b %d, %Y")
 SPOTIFY_LOGO = "assets/img/spotify-ex.png"
-df = pd.read_csv("data/raw/spotify.csv", parse_dates=['track_album_release_date'])
+df = pd.read_csv("data/raw/spotify.csv", parse_dates=["track_album_release_date"])
 df.dropna(inplace=True)
 
 # Styling
@@ -22,7 +22,7 @@ NAV_STYLE = {
 }
 
 TAB_STYLE = {
-    'marginBottom': 20,
+    "marginBottom": 20,
     "height": "50px",
     "padding": "3px 0 0 320px",
     "color": "white",
@@ -44,6 +44,7 @@ FOOTER_STYLE = {
 
 # Layout for 2 tab sections:  get_artist_section(), get_popularity_section()
 
+
 def get_artist_section():
     """
     1 row x 2 columns
@@ -54,36 +55,42 @@ def get_artist_section():
     sidebar_widgets = dbc.Col(
         children=[
             html.H2("Overview", className="display-30"),
-            html.H6("Welcome! This is a dashboard displaying trends in popularity of artists, \
-                genres and song types in Spotify. Happy exploring!", className='display-30'),
+            html.H6(
+                "Welcome! This is a dashboard displaying trends in popularity of artists, \
+                genres and song types in Spotify. Happy exploring!",
+                className="display-30",
+            ),
             html.Iframe(
                 id="widget_id",
                 style={
                     "width": "100%",
                     "height": "100px",
                     "border": "0px",
-                }
+                },
             ),
             html.H5("Artist Genre:"),
             dcc.Dropdown(
-                 id='genre',
-                 value='pop',
-                 options=['edm', 'latin', 'pop', 'r&b', 'rap', 'rock']),
+                id="genre",
+                value="pop",
+                options=["edm", "latin", "pop", "r&b", "rap", "rock"],
+            ),
             html.H5("Artist Name:"),
             dcc.Dropdown(
-                id='artist_selection',
-                value='Ed Sheeran',  # REQUIRED to show the plot on the first page load
-                style={'border-width': '0', 'width': '70%'},
-                options=[{'label': name, 'value': name} for name in df['track_artist'].unique().tolist()])
+                id="artist_selection",
+                value="Ed Sheeran",  # REQUIRED to show the plot on the first page load
+                style={"border-width": "0", "width": "70%"},
+                options=[
+                    {"label": name, "value": name}
+                    for name in df["track_artist"].unique().tolist()
+                ],
+            ),
         ],
-    width=3
-
+        width=3,
     )
 
     plot_1_settings = dbc.Col(
         [
             html.H4("Top Artists by Genre", className="display-30"),
-
             # Pseudo code for plot specfication, pleae modify
             html.Iframe(
                 id="artist_genre_bar_id",
@@ -113,12 +120,12 @@ def get_artist_section():
 
     plot_3_settings = dbc.Col(
         [
-            html.H4("Plot 3 with Artist pop histogram", className="display-30"),
+            html.H4("Artist's popularity record", className="display-30"),
             # Pseudo code for plot specfication, pleae modify
             html.Iframe(
                 id="artist_pop_hist_id",
                 style={
-                    "width": "50%",
+                    "width": "100%",
                     "height": "350px",
                     "border": "0px",
                 },
@@ -169,7 +176,7 @@ def get_popularity_section():
                 },
             ),
         ],
-    width=3
+        width=3,
     )
 
     plot_4_settings = dbc.Col(
@@ -192,7 +199,8 @@ def get_popularity_section():
     return section
 
 
-# Tabs 
+# Tabs
+
 
 def get_tab_section():
     tab_section = html.Div(
@@ -204,13 +212,12 @@ def get_tab_section():
                 ],
                 id="tabs",
                 active_tab="tab-1",
-                style = TAB_STYLE
+                style=TAB_STYLE,
             ),
             html.Div(id="tab-content"),
         ]
     )
     return tab_section
-
 
 
 # Navbars (top) and footer (bottom)
@@ -226,8 +233,7 @@ navbar = dbc.Navbar(
                     ],
                     align="center",
                     className="g-0",
-                    style=NAV_STYLE
-
+                    style=NAV_STYLE,
                 )
             )
         ]
