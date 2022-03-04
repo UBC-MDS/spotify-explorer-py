@@ -66,6 +66,7 @@ def top_artists(genre):
             tooltip="track_popularity",
         )
         .add_selection(click)
+        .properties(height=250, width=650)
     )
     return chart.to_html()
 
@@ -88,6 +89,7 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
             ),
             alt.Y("mean(track_popularity)", axis=alt.Axis(title="Popularity")),
         )
+        .properties(height=250, width=350)
     )
 
     chart = c1 + c1.mark_point()
@@ -116,7 +118,7 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
         .encode(x="mean(track_popularity):Q")
     )
 
-    result = (chart + rule).properties(width=300, height=280)
+    result = (chart + rule).properties(width=350, height=260)
     return result.to_html()
 
 
@@ -127,6 +129,23 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
     Input("xcol-widget", "value"),
 )
 def popular_non_popular_line(genre, feat):
+    """
+    plot density plot of song characeristics distribution with two popularity classes
+
+    Prameters
+    ---------
+    genre : str
+        genre of songs
+    feat: str
+        song features to explore on x-axis
+
+    Returns
+    --------
+        altair chart showing the distribution
+    Examples
+    --------
+    >>> popular_non_popular_line('latin', 'danceability')
+    """
     data_pop = df
     data_pop["Duration (min)"] = data_pop["duration_ms"] / 60000
     data_pop["Popularity class"] = np.where(

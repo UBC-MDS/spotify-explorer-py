@@ -45,12 +45,12 @@ FOOTER_STYLE = {
 
 # Layout for 2 tab sections:  get_artist_section(), get_popularity_section()
 
-
+# layout for sidebar in Artists/Genres
 def get_artist_section():
     """
     1 row x 2 columns
     1st col - Widgets
-    2nd col - with 2 rows where first row is 1 column and other row is 2 columns
+    2nd col - with 2 rows where first row has 1 column and other row has 2 columns
     """
 
     sidebar_widgets = dbc.Col(
@@ -77,6 +77,7 @@ def get_artist_section():
                 options=["edm", "latin", "pop", "r&b", "rap", "rock"],
             ),
             html.Br(),
+            html.Br(),
             html.H5("Artist Name:"),
             dcc.Dropdown(
                 id="artist_selection",
@@ -90,7 +91,7 @@ def get_artist_section():
         ],
         width=3,
     )
-
+    # layout for plot_1 on row 1
     plot_1_settings = dbc.Col(
         [
             html.H4("Top Artists by Genre", className="display-30"),
@@ -98,14 +99,18 @@ def get_artist_section():
             html.Iframe(
                 id="artist_genre_bar_id",
                 style={
-                    "width": "100%",
+                    "width": "900px",
                     "height": "350px",
                     "border": "0px",
+                    "padding-left": "60px",
                 },
             ),
-        ]
+        ],
+        style={
+            "text-align": "center",
+        },
     )
-
+    # layout for plot_2 on row 2 col 1
     plot_2_settings = dbc.Col(
         [
             html.H4("Artist's Popularity Over Time", className="display-30"),
@@ -116,11 +121,15 @@ def get_artist_section():
                     "width": "100%",
                     "height": "100%",
                     "border": "0px",
+                    "padding-left": "20px",
                 },
             ),
-        ]
+        ],
+        style={
+            "text-align": "center",
+        },
     )
-
+    # layout for plot_3 on row 2 col 2
     plot_3_settings = dbc.Col(
         [
             html.H4("Artist's popularity record", className="display-30"),
@@ -133,9 +142,12 @@ def get_artist_section():
                     "border": "0px",
                 },
             ),
-        ]
+        ],
+        style={
+            "text-align": "center",
+        },
     )
-
+    # layout for Artists/Genres section
     section = html.Div(
         [
             dbc.Row(
@@ -160,6 +172,7 @@ def get_artist_section():
     return section
 
 
+# Song characteristics section
 def get_popularity_section():
     """
     1 row
@@ -167,6 +180,7 @@ def get_popularity_section():
     1col - Widgets
     2col - Plot
     """
+    # layout for sidebar in Song characteristics
     sidebar_widgets = dbc.Col(
         children=[
             html.H2("Explore music characteristics", className="display-30"),
@@ -218,7 +232,7 @@ def get_popularity_section():
         ],
         width=3,
     )
-
+    # layout for plot_4 in Song characteristics
     plot_4_settings = dbc.Col(
         [
             html.H3(
@@ -269,7 +283,7 @@ def get_tab_section():
 
 
 # Navbars (top) and footer (bottom)
-
+# layout for top
 navbar = dbc.Navbar(
     dbc.Container(
         [
@@ -287,7 +301,7 @@ navbar = dbc.Navbar(
         ]
     )
 )
-
+# layout for footer
 container = dbc.Container(
     [
         html.Br(),
