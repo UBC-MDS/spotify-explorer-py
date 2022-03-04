@@ -92,10 +92,10 @@ def get_artist_section():
             html.Iframe(
                 id="artist_genre_bar_id",
                 style={
-                    "width": "900px",
+                    "width": "600px",
                     "height": "350px",
                     "border": "0px",
-                    "padding-left": "60px",
+                    "padding-left": "10px",
                 },
             ),
         ],
@@ -133,6 +133,7 @@ def get_artist_section():
                     "width": "100%",
                     "height": "350px",
                     "border": "0px",
+                    "padding-left": "10px",
                 },
             ),
         ],
