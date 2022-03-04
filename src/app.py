@@ -45,6 +45,22 @@ def switch_tab(tab_id):
 ## Plot1
 @app.callback(Output("artist_genre_bar_id", "srcDoc"), Input("genre", "value"))
 def top_artists(genre):
+    """
+    Create a bar plot of top 10 artists by genre from Spotify track data
+
+    Parameters
+    ---------
+    genre : str
+        genre of songs
+
+    Returns
+    --------
+        Altair chart in HTML format
+        
+    Examples
+    --------
+    >>> top_artists("r&b")
+    """
     top10_data = (
         df.query("playlist_genre == @genre")
         .groupby(["track_artist"])
@@ -132,7 +148,7 @@ def popular_non_popular_line(genre, feat):
     """
     plot density plot of song characeristics distribution with two popularity classes
 
-    Prameters
+    Parameters
     ---------
     genre : str
         genre of songs
