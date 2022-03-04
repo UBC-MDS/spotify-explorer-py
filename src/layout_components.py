@@ -71,11 +71,6 @@ def get_artist_section():
             ),
             html.Br(),
             html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
             html.H5("Artist Name:"),
             dcc.Dropdown(
                 id="artist_selection",
