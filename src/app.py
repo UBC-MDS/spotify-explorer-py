@@ -129,6 +129,23 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
     Input("xcol-widget", "value"),
 )
 def popular_non_popular_line(genre, feat):
+    """
+    plot density plot of song characeristics distribution with two popularity classes
+
+    Prameters
+    ---------
+    genre : str
+        genre of songs
+    feat: str
+        song features to explore on x-axis
+
+    Returns
+    --------
+        altair chart showing the distribution
+    Examples
+    --------
+    >>> popular_non_popular_line('latin', 'danceability')
+    """
     data_pop = df
     data_pop["Duration (min)"] = data_pop["duration_ms"] / 60000
     data_pop["Popularity class"] = np.where(
