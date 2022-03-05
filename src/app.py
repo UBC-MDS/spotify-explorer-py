@@ -42,6 +42,43 @@ def switch_tab(tab_id):
 
 # Plots -------------
 
+# Define theme with dictionary of configurations
+def green_theme():
+    return {
+        'config': {
+            # 'view': {
+            #     'height': 300,
+            #     'width': 400,
+            # },
+            'point': {
+                'color': '#99EDC3',
+                'fill': '#99EDC3'
+            },
+            'bar' : {
+                'color': 'white',
+                'fill': '#5DBB63'
+            },
+            'line' : {
+                'color': '#5DBB63'
+            },
+            'axis' : {
+                'labelFontSize' : 13,
+                'titleFontSize' : 16,
+                'titleColor' : '#234F1E',
+                'labelColor' : 'black'
+            }
+            #'font' : 'Calibri'
+        }
+    }
+
+# register the custom theme under a chosen name
+alt.themes.register('green_theme', green_theme)
+
+# enable the newly registered theme
+alt.themes.enable('green_theme')
+
+
+
 ## Plot1
 @app.callback(Output("artist_genre_bar_id", "srcDoc"), Input("genre", "value"))
 def top_artists(genre):
@@ -100,13 +137,15 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
         alt.Chart(trend_data)
         .mark_line()
         .encode(
-            alt.X(
-                "track_album_release_date", axis=alt.Axis(title="Album release date")
-            ),
+            alt.X("track_album_release_date", axis=alt.Axis(title="Album release date")),
             alt.Y("mean(track_popularity)", axis=alt.Axis(title="Popularity")),
-        )
-        .properties(height=250, width=350)
-    )
+            #tooltip=alt.Tooltip(["mean(track_popularity)", "track_artist", "track_album_release_date"])
+            tooltip=[alt.Tooltip("mean(track_popularity)", title="Avg Track Popularity"), 
+                    alt.Tooltip("track_artist", title="Artist"),
+                    alt.Tooltip("track_album_release_date", title="Album Date")]
+            )
+        ).properties(height=250, width=350)
+
 
     chart = c1 + c1.mark_point()
     # chart.properties(height=300, width=350, background='#eeeeef')
