@@ -30,9 +30,9 @@ Based on the artist chosen from the previous drop down list, this plot will show
 Finally, a seperate drop down list for song characteristics help users choose from a list of attributes such as `loudness`, `danceability`, etc. The plot then shows the relationship of the chosen attribute with `popularity` through a scatter plot.
 
 
-## Proposed Design Layout
+## App Design
 
-<img width="919" alt="Screenshot 2022-02-18 at 3 30 19 AM" src="https://user-images.githubusercontent.com/37771404/154680473-13514b7a-c765-4a8e-bc2b-1775e0df5d4d.png">
+<img width="919" src="./img/dashboard_gif.gif">
 
 ## If you want to help further develop the app
 1. Fork [the repository](https://github.com/UBC-MDS/spotify-explorer-py/)
