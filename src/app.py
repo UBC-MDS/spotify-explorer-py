@@ -56,7 +56,7 @@ def top_artists(genre):
     Returns
     --------
         Altair chart in HTML format
-        
+
     Examples
     --------
     >>> top_artists("r&b")
@@ -82,7 +82,7 @@ def top_artists(genre):
             tooltip="track_popularity",
         )
         .add_selection(click)
-        .properties(height=250, width=650)
+        .properties(height=250, width=420)
     )
     return chart.to_html()
 
