@@ -20,7 +20,7 @@ All plots have interactivity embedded in them which help users zoom in, crop and
 
 ## Proposed Design Layout
 
-<img width="919" alt="Screenshot 2022-02-18 at 3 30 19 AM" src="https://user-images.githubusercontent.com/37771404/154680473-13514b7a-c765-4a8e-bc2b-1775e0df5d4d.png">
+<img width="919" src="./img/dashboard_gif.gif">
 
 
 ## Contributors
