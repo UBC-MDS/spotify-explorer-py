@@ -169,10 +169,9 @@ def get_artist_section():
 # Song characteristics section
 def get_popularity_section():
     """
-    1 row
-    2 columns
-    1col - Widgets
-    2col - Plot
+    1 row x 2 columns
+    1st col - Widgets
+    2nd col - Plot
     """
     # layout for sidebar in Song characteristics
     sidebar_widgets = dbc.Col(
