@@ -34,6 +34,7 @@ Finally, a seperate drop down list for song characteristics help users choose fr
 
 <img width="919" src="./img/dashboard_gif.gif">
 
+
 ## If you want to help further develop the app
 1. Fork [the repository](https://github.com/UBC-MDS/spotify-explorer-py/)
 2. Set up conda environment as follows
