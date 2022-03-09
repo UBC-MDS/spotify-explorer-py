@@ -26,6 +26,7 @@ app = Dash(
 
 server = app.server
 
+app.title = "Spotify explorer"
 app.layout = html.Div([lc.navbar, lc.container], style={"backgroundColor": "#eeeeef"})
 
 # Tabs ----------
