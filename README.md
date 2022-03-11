@@ -48,6 +48,16 @@ python src/app.py
 ```
 4. Create an issue on this repo to inform the Team about the changes/improvements you want to make. See **Contributing** section below for more details.
 
+
+## Run the app locally via Docker
+
+If you wish to run our app using Docker, fork our repo and write the following commands in the **root** of this repo after loading up Docker Desktop:
+
+```bash
+docker-compose up
+```
+Finally, open the app at this URL: http://localhost:8000/
+
 ## Contributing
 
 Interested in contributing? Check out the contributing guidelines. Please note that this project is released with a [Code of Conduct](https://github.com/UBC-MDS/spotify-explorer-py/blob/main/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
