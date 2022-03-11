@@ -4,6 +4,7 @@ services:
   # main application
   myapp:
     container_name: spotify-py4
+    platform: linux/amd64
     build:
       .
     ports:
