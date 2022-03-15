@@ -1,6 +1,7 @@
 # author: Christopher Alexander, Jennifer Hoang, Michelle, Thea Wenxin
 # date: 2022-03-01
 
+from turtle import width
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -283,8 +284,10 @@ navbar = dbc.Navbar(
             html.A(
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src=SPOTIFY_LOGO, height="50px")),
-                        dbc.Col(dbc.NavbarBrand("Spotify Explorer", className="py-10")),
+                        dbc.Col(html.Img(src=SPOTIFY_LOGO, height="80px")),
+                        dbc.Col(
+                            dbc.NavbarBrand("Spotify Explorer", className="fs-1 text")
+                        ),
                     ],
                     align="center",
                     className="g-0",
