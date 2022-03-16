@@ -88,59 +88,105 @@ def get_artist_section():
     # layout for plot_1 on row 1
     plot_1_settings = dbc.Col(
         [
-            html.H4("Top Artists by Genre", className="display-30"),
-            # Pseudo code for plot specfication, pleae modify
-            html.Iframe(
-                id="artist_genre_bar_id",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4("Top Artists by Genre", className="display-30"),
+                    ),
+                    dbc.CardBody(
+                        html.Iframe(
+                            id="artist_genre_bar_id",
+                            style={
+                                "width": "80%",
+                                "height": "320px",
+                                "backgroundColor": "#F2F7F5",
+                            },
+                        )
+                    ),
+                ],
                 style={
-                    "width": "600px",
-                    "height": "350px",
-                    "border": "0px",
-                    "padding-left": "10px",
+                    "width": "100%",
+                    "height": "400px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #000000",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
         ],
-        style={
-            "text-align": "center",
-        },
     )
     # layout for plot_2 on row 2 col 1
     plot_2_settings = dbc.Col(
         [
-            html.H4("Artist's Popularity Over Time", className="display-30"),
-            # Pseudo code for plot specfication, pleae modify
-            html.Iframe(
-                id="artist_trend_plot",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4(
+                            "Artist's Popularity Over Time", className="display-30"
+                        ),
+                    ),
+                    dbc.CardBody(
+                        html.Iframe(
+                            id="artist_trend_plot",
+                            style={
+                                "width": "100%",
+                                "height": "300px",
+                                "backgroundColor": "#F2F7F5",
+                            },
+                        )
+                    ),
+                ],
                 style={
-                    "width": "100%",
-                    "height": "100%",
-                    "border": "0px",
-                    "padding-left": "20px",
+                    "width": "110%",
+                    "height": "410px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #000000",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
         ],
-        style={
-            "text-align": "center",
-        },
     )
     # layout for plot_3 on row 2 col 2
     plot_3_settings = dbc.Col(
         [
-            html.H4("Artist's popularity record", className="display-30"),
-            # Pseudo code for plot specfication, pleae modify
-            html.Iframe(
-                id="artist_pop_hist_id",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4("Artist's popularity record", className="display-30"),
+                    ),
+                    dbc.CardBody(
+                        html.Iframe(
+                            id="artist_pop_hist_id",
+                            style={
+                                "width": "100%",
+                                "height": "300px",
+                                "backgroundColor": "#F2F7F5",
+                            },
+                        )
+                    ),
+                ],
                 style={
                     "width": "100%",
-                    "height": "350px",
-                    "border": "0px",
-                    "padding-left": "10px",
+                    "height": "410px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #000000",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
+            # html.H4("Artist's popularity record", className="display-30"),
+            # # Pseudo code for plot specfication, pleae modify
+            # html.Iframe(
+            #     id="artist_pop_hist_id",
+            #     style={
+            #         "width": "100%",
+            #         "height": "350px",
+            #         "border": "0px",
+            #         "padding-left": "10px",
+            #     },
+            # ),
         ],
-        style={
-            "text-align": "center",
-        },
     )
     # layout for Artists/Genres section
     section = html.Div(
@@ -229,25 +275,35 @@ def get_popularity_section():
     # layout for plot_4 in Song characteristics
     plot_4_settings = dbc.Col(
         [
-            html.H3(
-                "Song characteristics distribution between two popularity classes",
-                className="display-30",
-            ),
-            html.Iframe(
-                id="pop_unpop_id",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4(
+                            "Song characteristics between popularity classes",
+                            className="display-30",
+                        ),
+                    ),
+                    dbc.CardBody(
+                        html.Iframe(
+                            id="pop_unpop_id",
+                            style={
+                                "width": "80%",
+                                "height": "320px",
+                                "backgroundColor": "#F2F7F5",
+                            },
+                        )
+                    ),
+                ],
                 style={
                     "width": "100%",
-                    "height": "450px",
-                    "padding-left": "80px",
-                    "border": "0px",
+                    "height": "440px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #000000",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
         ],
-        style={
-            "width": "100%",
-            "height": "520px",
-            "border": "0px",
-        },
     )
 
     section = html.Div([dbc.Row(children=[sidebar_widgets, plot_4_settings])])

@@ -112,8 +112,9 @@ def top_artists(genre):
             tooltip="track_popularity",
         )
         .add_selection(click)
-        .properties(height=250, width=420)
-    )
+        .properties(height=220, width=420)
+    ).configure(background="#F2F7F5", padding=10)
+
     return chart.to_html()
 
 
@@ -154,9 +155,9 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
                 alt.Tooltip("track_album_release_date", title="Album Date"),
             ],
         )
-    ).properties(height=250, width=350)
+    ).properties(height=225, width=300)
 
-    chart = c1 + c1.mark_point()
+    chart = (c1 + c1.mark_point()).configure(background="#F2F7F5", padding=10)
     # chart.properties(height=300, width=350, background='#eeeeef')
     return chart.to_html()
 
@@ -195,7 +196,11 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
         .encode(x="mean(track_popularity):Q")
     )
 
-    result = (chart + rule).properties(width=350, height=260)
+    result = (
+        (chart + rule)
+        .configure(background="#F2F7F5", padding=10)
+        .properties(height=220, width=270)
+    )
     return result.to_html()
 
 
@@ -245,8 +250,8 @@ def popular_non_popular_line(genre, feat):
         .configure_axis(labelFontSize=14, titleFontSize=14)
         .configure_legend(titleFontSize=14)
         .configure_title(fontSize=18)
-        .properties(height=280, width=450)
-    )
+        .properties(height=230, width=410)
+    ).configure(background="#F2F7F5", padding=10)
 
     return chart.to_html()
 
