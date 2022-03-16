@@ -72,6 +72,10 @@ def get_artist_section():
             ),
             html.Br(),
             html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
             html.H5("Artist Name:"),
             dcc.Dropdown(
                 id="artist_selection",
@@ -175,17 +179,6 @@ def get_artist_section():
                     "text-align": "center",
                 },
             )
-            # html.H4("Artist's popularity record", className="display-30"),
-            # # Pseudo code for plot specfication, pleae modify
-            # html.Iframe(
-            #     id="artist_pop_hist_id",
-            #     style={
-            #         "width": "100%",
-            #         "height": "350px",
-            #         "border": "0px",
-            #         "padding-left": "10px",
-            #     },
-            # ),
         ],
     )
     # layout for Artists/Genres section
