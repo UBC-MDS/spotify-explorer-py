@@ -184,21 +184,26 @@ def get_artist_section():
     # layout for Artists/Genres section
     section = html.Div(
         [
-            dbc.Row(
+            dcc.Loading(
+                type="cube",
                 children=[
-                    sidebar_widgets,
-                    dbc.Col(
+                    dbc.Row(
                         children=[
-                            dbc.Row(children=[plot_1_settings]),
-                            dbc.Row(
+                            sidebar_widgets,
+                            dbc.Col(
                                 children=[
-                                    plot_2_settings,
-                                    plot_3_settings,
+                                    dbc.Row(children=[plot_1_settings]),
+                                    dbc.Row(
+                                        children=[
+                                            plot_2_settings,
+                                            plot_3_settings,
+                                        ]
+                                    ),
                                 ]
                             ),
                         ]
-                    ),
-                ]
+                    )
+                ],
             )
         ]
     )
@@ -299,7 +304,14 @@ def get_popularity_section():
         ],
     )
 
-    section = html.Div([dbc.Row(children=[sidebar_widgets, plot_4_settings])])
+    section = html.Div(
+        [
+            dcc.Loading(
+                type="cube",
+                children=[dbc.Row(children=[sidebar_widgets, plot_4_settings])],
+            )
+        ]
+    )
 
     return section
 
