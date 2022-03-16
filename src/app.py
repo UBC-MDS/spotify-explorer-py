@@ -1,6 +1,7 @@
 # author: Christopher Alexander, Jennifer Hoang, Michelle Wang, Thea Wenxin
 # date: 2022-03-01
 
+import click
 import altair as alt
 import pandas as pd
 import numpy as np
@@ -112,8 +113,9 @@ def top_artists(genre):
             tooltip="track_popularity",
         )
         .add_selection(click)
-        .properties(height=250, width=420)
-    )
+        .properties(height=220, width=420)
+    ).configure(background="#F2F7F5", padding=10)
+
     return chart.to_html()
 
 
@@ -139,12 +141,15 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
     if track_artist != "Ed Sheeran":
         trend_data = df.query("track_artist == @track_artist")
 
+    brush = alt.selection_interval()
+
     c1 = (
         alt.Chart(trend_data)
         .mark_line()
         .encode(
             alt.X(
-                "track_album_release_date", axis=alt.Axis(title="Album release date")
+                "track_album_release_date",
+                axis=alt.Axis(title="Album release date"),
             ),
             alt.Y("mean(track_popularity)", axis=alt.Axis(title="Popularity")),
             # tooltip=alt.Tooltip(["mean(track_popularity)", "track_artist", "track_album_release_date"])
@@ -154,9 +159,9 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
                 alt.Tooltip("track_album_release_date", title="Album Date"),
             ],
         )
-    ).properties(height=250, width=350)
+    ).properties(height=225, width=300)
 
-    chart = c1 + c1.mark_point()
+    chart = (c1 + c1.mark_point()).configure(background="#F2F7F5", padding=10)
     # chart.properties(height=300, width=350, background='#eeeeef')
     return chart.to_html()
 
@@ -179,15 +184,22 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
     --------
     >>> artist_popularity_hist(track_artist="Ed Sheeran")
     """
+    brush = alt.selection_multi()
+
     chart = (
         alt.Chart(df.query("track_artist == @track_artist"))
         .mark_bar()
         .encode(
-            x=alt.X("track_popularity", bin=True, title="Track popularity"),
+            x=alt.X(
+                "track_popularity:Q",
+                bin=True,
+                title="Track popularity with mean",
+            ),
             y=alt.Y("count()"),
+            opacity=alt.condition(brush, alt.value(0.9), alt.value(0.2)),
             tooltip=alt.Tooltip("count()"),
         )
-    )
+    ).add_selection(brush)
 
     rule = (
         alt.Chart(df.query("track_artist == @track_artist"))
@@ -195,7 +207,11 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
         .encode(x="mean(track_popularity):Q")
     )
 
-    result = (chart + rule).properties(width=350, height=260)
+    result = (
+        (chart + rule)
+        .configure(background="#F2F7F5", padding=10)
+        .properties(height=220, width=270)
+    )
     return result.to_html()
 
 
@@ -223,6 +239,9 @@ def popular_non_popular_line(genre, feat):
     --------
     >>> popular_non_popular_line('latin', 'danceability')
     """
+
+    click = alt.selection_multi(fields=["Popularity class"], bind="legend")
+
     data_pop = df
     data_pop["Duration (min)"] = data_pop["duration_ms"] / 60000
     data_pop["Popularity class"] = np.where(
@@ -235,17 +254,22 @@ def popular_non_popular_line(genre, feat):
     )
     data_pop_query = data_pop.query("Genres == @genre")
     chart = (
-        alt.Chart(data_pop_query)
-        .mark_line(interpolate="monotone")
-        .encode(
-            alt.X(feat, bin=alt.Bin(maxbins=30), title=f"{feat.title()}"),
-            y="count()",
-            color="Popularity class",
+        (
+            alt.Chart(data_pop_query)
+            .mark_line(interpolate="monotone")
+            .encode(
+                alt.X(feat, bin=alt.Bin(maxbins=30), title=f"{feat.title()}"),
+                y="count()",
+                color="Popularity class",
+                opacity=alt.condition(click, alt.value(0.9), alt.value(0.2)),
+            )
+            .configure_axis(labelFontSize=14, titleFontSize=14)
+            .configure_legend(titleFontSize=14)
+            .configure_title(fontSize=18)
+            .properties(height=230, width=410)
         )
-        .configure_axis(labelFontSize=14, titleFontSize=14)
-        .configure_legend(titleFontSize=14)
-        .configure_title(fontSize=18)
-        .properties(height=280, width=450)
+        .add_selection(click)
+        .configure(background="#F2F7F5", padding=10)
     )
 
     return chart.to_html()
