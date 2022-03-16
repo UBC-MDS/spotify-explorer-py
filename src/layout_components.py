@@ -1,7 +1,7 @@
 # author: Christopher Alexander, Jennifer Hoang, Michelle, Thea Wenxin
 # date: 2022-03-01
 
-from turtle import width
+
 import pandas as pd
 import numpy as np
 from datetime import datetime
