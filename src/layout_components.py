@@ -284,7 +284,7 @@ navbar = dbc.Navbar(
             html.A(
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src=SPOTIFY_LOGO, height="80px")),
+                        dbc.Col(html.Img(src=SPOTIFY_LOGO, height="58px")),
                         dbc.Col(dbc.NavbarBrand("Spotify Explorer", className="py-10")),
                     ],
                     align="center",
