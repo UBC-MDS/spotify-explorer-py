@@ -257,7 +257,7 @@ def get_popularity_section():
                 options=[
                     {
                         "label": "Electronic dance music",
-                        "value": "electronic dance music",
+                        "value": "edm",
                     },
                     {"label": "Pop", "value": "pop"},
                     {"label": "Rap", "value": "rap"},
@@ -265,7 +265,7 @@ def get_popularity_section():
                     {"label": "Latin", "value": "latin"},
                     {"label": "R&B", "value": "r&b"},
                 ],
-                value="electronic dance music",
+                value="edm",
             ),
             html.Iframe(
                 id="widget_id2",

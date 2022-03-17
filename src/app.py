@@ -274,9 +274,10 @@ def popular_non_popular_line(genre, feat):
         "Not popular",
         "Popular",
     )
-    data_pop["Genres"] = data_pop["playlist_genre"].replace(
-        ["edm"], ["electronic dance music"]
-    )
+    # data_pop["Genres"] = data_pop["playlist_genre"].replace(
+    #     ["edm"], ["electronic dance music"]
+    # )
+    data_pop = data_pop.rename(columns={"playlist_genre": "Genres"})
     data_pop_query = data_pop.query("Genres == @genre")
     chart = (
         (
