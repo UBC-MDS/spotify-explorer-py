@@ -365,8 +365,8 @@ collapse_bar = dbc.Row([
     dbc.Col(
         dbc.Collapse(
             html.P([
-                    """This dataset is derived from the spotifyr package and contains over 20,000 songs, 10,000 artists 
-                    and 6 main music genres on Spotify.""", html.Br(),  
+                    """This dataset comes from the spotifyr package and contains over 20,000 songs, 10,000 artists 
+                    and 6 main music genres on Spotify released up until 2020.""", html.Br(),  
                     "This app is built on Dash, using Python packages and bootstrap components."],
                     style={'color': '#0B6623', 'width': '100%', 'margin-left': '50px'}
             ), 
