@@ -107,6 +107,7 @@ def get_artist_section():
                                     "backgroundColor": "#F2F7F5",
                                 },
                             ),
+                            type = 'cube',
                             color = '#D0F0C0',
                             fullscreen = True
                     )
