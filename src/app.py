@@ -45,6 +45,7 @@ def toggle_collapse(n, is_open):
     return is_open
 
 
+app.title = "Spotify explorer"
 app.layout = html.Div([lc.navbar, lc.container], style={"backgroundColor": "#eeeeef"})
 
 
@@ -135,6 +136,7 @@ def top_artists(genre):
     ).configure(background="#F2F7F5", padding=10).configure_axis(
                                     titlePadding=10)
 
+
     return chart.to_html()
 
 
@@ -182,6 +184,7 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
 
     chart = (c1 + c1.mark_point()).configure(background="#F2F7F5", padding=10).configure_axis(
                                     titlePadding=10)
+
     # chart.properties(height=300, width=350, background='#eeeeef')
     return chart.to_html()
 
@@ -232,6 +235,7 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
         .configure(background="#F2F7F5", padding=10)
         .properties(height=180, width=250)
         .configure_axis(titlePadding=10)
+
     )
     return result.to_html()
 
