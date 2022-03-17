@@ -1,6 +1,7 @@
 # author: Christopher Alexander, Jennifer Hoang, Michelle Wang, Thea Wenxin
 # date: 2022-03-01
 
+import click
 import altair as alt
 import pandas as pd
 import numpy as np
@@ -18,15 +19,34 @@ df.dropna(inplace=True)
 # Set up app frontend
 app = Dash(
     __name__,
-    title="Spotify Explorer",
+    title="\nnn Spotify Explorer",
     # MORPH - another stylesheet
     external_stylesheets=[dbc.themes.MINTY],
     suppress_callback_exceptions=True,
 )
 
 server = app.server
+app.title = "Spotify explorer"
+
+# collapse button  ------
+
+@app.callback(
+    Output("collapse", "is_open"),
+    [Input("collapse-button", "n_clicks")],
+    [State("collapse", "is_open")],
+)
+def toggle_collapse(n, is_open):
+    """
+    Takes the output of collapse-button as an input if it the toggle
+    buton has clicked by the user shows the information,
+    """
+    if n:
+        return not is_open
+    return is_open
+
 
 app.layout = html.Div([lc.navbar, lc.container], style={"backgroundColor": "#eeeeef"})
+
 
 # Tabs ----------
 
@@ -45,43 +65,51 @@ def switch_tab(tab_id):
 # Define theme with dictionary of configurations
 def green_theme():
     return {
-        'config': {
+        "config": {
             # 'view': {
             #     'height': 300,
             #     'width': 400,
             # },
-            'point': {
-                'color': '#99EDC3',
-                'fill': '#99EDC3'
-            },
-            'bar' : {
-                'color': 'white',
-                'fill': '#5DBB63'
-            },
-            'line' : {
-                'color': '#5DBB63'
-            },
-            'axis' : {
-                'labelFontSize' : 13,
-                'titleFontSize' : 16,
-                'titleColor' : '#234F1E',
-                'labelColor' : 'black'
+            "point": {"color": "#99EDC3", "fill": "#99EDC3"},
+            "bar": {"color": "white", "fill": "#5DBB63"},
+            "line": {"color": "#5DBB63"},
+            "axis": {
+                "labelFontSize": 13,
+                "titleFontSize": 16,
+                "titleColor": "#234F1E",
+                "labelColor": "black",
             }
             #'font' : 'Calibri'
         }
     }
 
+
 # register the custom theme under a chosen name
-alt.themes.register('green_theme', green_theme)
+alt.themes.register("green_theme", green_theme)
 
 # enable the newly registered theme
-alt.themes.enable('green_theme')
-
+alt.themes.enable("green_theme")
 
 
 ## Plot1
 @app.callback(Output("artist_genre_bar_id", "srcDoc"), Input("genre", "value"))
 def top_artists(genre):
+    """
+    Create a bar plot of top 10 artists by genre from Spotify track data
+
+    Parameters
+    ---------
+    genre : str
+        genre of songs
+
+    Returns
+    --------
+        Altair chart in HTML format
+
+    Examples
+    --------
+    >>> top_artists("r&b")
+    """
     top10_data = (
         df.query("playlist_genre == @genre")
         .groupby(["track_artist"])
@@ -103,35 +131,57 @@ def top_artists(genre):
             tooltip="track_popularity",
         )
         .add_selection(click)
-        .properties(height=250, width=650)
-    )
+        .properties(height=220, width=420)
+    ).configure(background="#F2F7F5", padding=10).configure_axis(
+                                    titlePadding=10)
+
     return chart.to_html()
 
 
 ## Plot2
 @app.callback(Output("artist_trend_plot", "srcDoc"), Input("artist_selection", "value"))
 def artist_trend_plot(track_artist="Ed Sheeran"):
+    """
+    Creates a popularity trend chart for a given artist.
+    Parameters
+    ---------
+    track_artist : str
+        Artist name to plot .
+    Returns
+    --------
+        Altair chart in HTML format
+    Examples
+    --------
+    >>> artist_trend_plot(track_artist="Ed Sheeran")
+    """
 
     trend_data = df.query("track_artist == 'Ed Sheeran' ")
 
     if track_artist != "Ed Sheeran":
         trend_data = df.query("track_artist == @track_artist")
 
+    brush = alt.selection_interval()
+
     c1 = (
         alt.Chart(trend_data)
         .mark_line()
         .encode(
-            alt.X("track_album_release_date", axis=alt.Axis(title="Album release date")),
+            alt.X(
+                "track_album_release_date",
+                axis=alt.Axis(title="Album release date"),
+            ),
             alt.Y("mean(track_popularity)", axis=alt.Axis(title="Popularity")),
-            #tooltip=alt.Tooltip(["mean(track_popularity)", "track_artist", "track_album_release_date"])
-            tooltip=[alt.Tooltip("mean(track_popularity)", title="Avg Track Popularity"), 
-                    alt.Tooltip("track_artist", title="Artist"),
-                    alt.Tooltip("track_album_release_date", title="Album Date")]
-            )
-        ).properties(height=250, width=350)
+            # tooltip=alt.Tooltip(["mean(track_popularity)", "track_artist", "track_album_release_date"])
+            tooltip=[
+                alt.Tooltip("mean(track_popularity)", title="Avg Track Popularity"),
+                alt.Tooltip("track_artist", title="Artist"),
+                alt.Tooltip("track_album_release_date", title="Album Date"),
+            ],
+        )
+    ).properties(height=200, width=280)
 
-
-    chart = c1 + c1.mark_point()
+    chart = (c1 + c1.mark_point()).configure(background="#F2F7F5", padding=10).configure_axis(
+                                    titlePadding=10)
     # chart.properties(height=300, width=350, background='#eeeeef')
     return chart.to_html()
 
@@ -141,15 +191,35 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
     Output("artist_pop_hist_id", "srcDoc"), Input("artist_selection", "value")
 )
 def artist_popularity_hist(track_artist="Ed Sheeran"):
+    """
+    Create a popularity histogram for a specific artist.
+    Parameters
+    ---------
+    track_artist : str
+        Artist name to plot .
+    Returns
+    --------
+        Altair chart in HTML format
+    Examples
+    --------
+    >>> artist_popularity_hist(track_artist="Ed Sheeran")
+    """
+    brush = alt.selection_multi()
+
     chart = (
         alt.Chart(df.query("track_artist == @track_artist"))
         .mark_bar()
         .encode(
-            x=alt.X("track_popularity", bin=True, title="Track popularity"),
+            x=alt.X(
+                "track_popularity:Q",
+                bin=True,
+                title="Track popularity with mean",
+            ),
             y=alt.Y("count()"),
+            opacity=alt.condition(brush, alt.value(0.9), alt.value(0.2)),
             tooltip=alt.Tooltip("count()"),
         )
-    )
+    ).add_selection(brush)
 
     rule = (
         alt.Chart(df.query("track_artist == @track_artist"))
@@ -157,7 +227,12 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
         .encode(x="mean(track_popularity):Q")
     )
 
-    result = (chart + rule).properties(width=350, height=260)
+    result = (
+        (chart + rule)
+        .configure(background="#F2F7F5", padding=10)
+        .properties(height=180, width=250)
+        .configure_axis(titlePadding=10)
+    )
     return result.to_html()
 
 
@@ -171,7 +246,7 @@ def popular_non_popular_line(genre, feat):
     """
     plot density plot of song characeristics distribution with two popularity classes
 
-    Prameters
+    Parameters
     ---------
     genre : str
         genre of songs
@@ -185,6 +260,9 @@ def popular_non_popular_line(genre, feat):
     --------
     >>> popular_non_popular_line('latin', 'danceability')
     """
+
+    click = alt.selection_multi(fields=["Popularity class"], bind="legend")
+
     data_pop = df
     data_pop["Duration (min)"] = data_pop["duration_ms"] / 60000
     data_pop["Popularity class"] = np.where(
@@ -197,17 +275,22 @@ def popular_non_popular_line(genre, feat):
     )
     data_pop_query = data_pop.query("Genres == @genre")
     chart = (
-        alt.Chart(data_pop_query)
-        .mark_line(interpolate="monotone")
-        .encode(
-            alt.X(feat, bin=alt.Bin(maxbins=30), title=f"{feat.title()}"),
-            y="count()",
-            color="Popularity class",
+        (
+            alt.Chart(data_pop_query)
+            .mark_line(interpolate="monotone")
+            .encode(
+                alt.X(feat, bin=alt.Bin(maxbins=30), title=f"{feat.title()}"),
+                y="count()",
+                color="Popularity class",
+                opacity=alt.condition(click, alt.value(0.9), alt.value(0.2)),
+            )
+            .configure_axis(labelFontSize=14, titleFontSize=14)
+            .configure_legend(titleFontSize=14)
+            .configure_title(fontSize=18)
+            .properties(height=230, width=410)
         )
-        .configure_axis(labelFontSize=14, titleFontSize=14)
-        .configure_legend(titleFontSize=14)
-        .configure_title(fontSize=18)
-        .properties(height=280, width=450)
+        .add_selection(click)
+        .configure(background="#F2F7F5", padding=10)
     )
 
     return chart.to_html()
