@@ -194,6 +194,7 @@ def get_artist_section():
     section = html.Div(
         [
             dcc.Loading(
+                type = 'cube',
                 color ="#D0F0C0",
                 children=[
                     dbc.Row(
@@ -316,6 +317,7 @@ def get_popularity_section():
     section = html.Div(
         [
             dcc.Loading(
+                type = 'cube',
                 color = '#D0F0C0',
                 children=[dbc.Row(children=[sidebar_widgets, plot_4_settings])],
             )
