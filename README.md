@@ -4,7 +4,7 @@ Spotify Explorer is a data visualization dashboard app (built on Dash) displayin
 
 ## Table of Contents
 
-- [The App](#the-app)
+  - [The App](#the-app)
   - [Motivation and Purpose](#motivation-and-purpose)
   - [Dashboard description](#dashboard-description)
   - [App Design](#app-design)
