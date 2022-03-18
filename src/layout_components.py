@@ -57,9 +57,13 @@ def get_artist_section():
     sidebar_widgets = dbc.Col(
         children=[
             html.H2("Overview", className="display-30"),
-            html.H6(
-                "Welcome! This is a dashboard displaying trends in popularity of artists, \
-                genres and song types in Spotify. Happy exploring!",
+            html.H6([
+                """Welcome! This is a dashboard displaying trends in popularity of artists, \
+                genres and song types in Spotify.""",
+                html.Br(),
+                html.Br(),
+                """This section shows popularity of artists by genre and over time, as well as artist's distribution of popularity.""",
+                html.Br()],
                 className="display-30",
             ),
             html.Br(),
@@ -70,9 +74,6 @@ def get_artist_section():
                 style={"border-width": "0", "width": "100%"},
                 options=["edm", "latin", "pop", "r&b", "rap", "rock"],
             ),
-            html.Br(),
-            html.Br(),
-            html.Br(),
             html.Br(),
             html.Br(),
             html.Br(),
@@ -224,16 +225,25 @@ def get_artist_section():
 # Song characteristics section
 def get_popularity_section():
     """
-    1 row x 2 columns
-    1st col - Widgets
-    2nd col - Plot
+    1 row x 2 columns:
+        col1 - Widgets
+        col2 - Plot
     """
     # layout for sidebar in Song characteristics
     sidebar_widgets = dbc.Col(
         children=[
-            html.H2("Explore music characteristics", className="display-30"),
+            html.H2("Music characteristics", className="display-30"),
+             html.H6([
+                "This section shows song characteristics for popular/not-popular songs of different genres.",
+                html.Br(),
+                html.Br(),
+                html.B('Popular: '), "Songs rated higher than median popularity.",
+                html.Br(),
+                html.B('Not popular: '), "Vice versa."],
+                className="display-30",
+            ),
             html.Br(),
-            html.H5("Music Features:"),
+            html.H5("Song characteristics:"),
             dcc.Dropdown(
                 id="xcol-widget",
                 style={"border-width": "0", "width": "100%"},
@@ -314,12 +324,30 @@ def get_popularity_section():
         ],
     )
 
+    # section = html.Div(
+    #     [
+    #         dcc.Loading(
+    #             type = 'cube',
+    #             color = '#D0F0C0',
+    #             children=[dbc.Row(children=[sidebar_widgets, plot_4_settings])],
+    #         )
+    #     ]
+    # )
+
+    # layout for song characteristics section
     section = html.Div(
         [
             dcc.Loading(
                 type = 'cube',
-                color = '#D0F0C0',
-                children=[dbc.Row(children=[sidebar_widgets, plot_4_settings])],
+                color ="#D0F0C0",
+                children=[
+                    dbc.Row(
+                        children=[
+                            sidebar_widgets,
+                            plot_4_settings,
+                        ]
+                    )
+                ],
             )
         ]
     )
