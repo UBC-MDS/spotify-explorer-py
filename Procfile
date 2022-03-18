@@ -1,1 +1,1 @@
-web: gunicorn src.app:server --pythonpath=src
+web: gunicorn --workers 2 --threads 8 src.app:server --pythonpath=src

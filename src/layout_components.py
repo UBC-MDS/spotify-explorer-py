@@ -1,6 +1,7 @@
 # author: Christopher Alexander, Jennifer Hoang, Michelle, Thea Wenxin
 # date: 2022-03-01
 
+
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -56,9 +57,13 @@ def get_artist_section():
     sidebar_widgets = dbc.Col(
         children=[
             html.H2("Overview", className="display-30"),
-            html.H6(
-                "Welcome! This is a dashboard displaying trends in popularity of artists, \
-                genres and song types in Spotify. Happy exploring!",
+            html.H6([
+                """Welcome! This is a dashboard displaying trends in popularity of artists, \
+                genres and song types in Spotify.""",
+                html.Br(),
+                html.Br(),
+                """This section shows popularity of artists by genre and over time, as well as artist's distribution of popularity.""",
+                html.Br()],
                 className="display-30",
             ),
             html.Br(),
@@ -69,6 +74,7 @@ def get_artist_section():
                 style={"border-width": "0", "width": "100%"},
                 options=["edm", "latin", "pop", "r&b", "rap", "rock"],
             ),
+            html.Br(),
             html.Br(),
             html.Br(),
             html.H5("Artist Name:"),
@@ -87,78 +93,128 @@ def get_artist_section():
     # layout for plot_1 on row 1
     plot_1_settings = dbc.Col(
         [
-            html.H4("Top Artists by Genre", className="display-30"),
-            # Pseudo code for plot specfication, pleae modify
-            html.Iframe(
-                id="artist_genre_bar_id",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4("Top Artists by Genre", className="display-30"),
+                    ),
+                    dbc.CardBody(
+                        dcc.Loading(
+                            html.Iframe(
+                                id="artist_genre_bar_id",
+                                style={
+                                    "width": "80%",
+                                    "height": "320px",
+                                    "backgroundColor": "#F2F7F5",
+                                },
+                            ),
+                            type = 'cube',
+                            color = '#D0F0C0',
+                            fullscreen = True
+                    )
+                    ),
+                ],
                 style={
-                    "width": "600px",
-                    "height": "350px",
-                    "border": "0px",
-                    "padding-left": "10px",
+                    "width": "100%",
+                    "height": "400px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #FFFFFF",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
         ],
-        style={
-            "text-align": "center",
-        },
     )
+
     # layout for plot_2 on row 2 col 1
     plot_2_settings = dbc.Col(
         [
-            html.H4("Artist's Popularity Over Time", className="display-30"),
-            # Pseudo code for plot specfication, pleae modify
-            html.Iframe(
-                id="artist_trend_plot",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4(
+                            "Artist's Popularity Over Time", className="display-30"
+                        ),
+                    ),
+                    dbc.CardBody(
+                        html.Iframe(
+                            id="artist_trend_plot",
+                            style={
+                                "width": "100%",
+                                "height": "300px",
+                                "backgroundColor": "#F2F7F5",
+                            },
+                        )
+                    ),
+                ],
                 style={
-                    "width": "100%",
-                    "height": "100%",
-                    "border": "0px",
-                    "padding-left": "20px",
+                    "width": "110%",
+                    "height": "410px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #FFFFFF",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
         ],
-        style={
-            "text-align": "center",
-        },
+        width = 6
     )
     # layout for plot_3 on row 2 col 2
     plot_3_settings = dbc.Col(
         [
-            html.H4("Artist's popularity record", className="display-30"),
-            # Pseudo code for plot specfication, pleae modify
-            html.Iframe(
-                id="artist_pop_hist_id",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4("Artist's popularity record", className="display-30"),
+                    ),
+                    dbc.CardBody(
+                        html.Iframe(
+                            id="artist_pop_hist_id",
+                            style={
+                                "width": "100%",
+                                "height": "300px",
+                                "backgroundColor": "#F2F7F5",
+                            },
+                        )
+                    ),
+                ],
                 style={
                     "width": "100%",
-                    "height": "350px",
-                    "border": "0px",
-                    "padding-left": "10px",
+                    "height": "410px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #FFFFFF",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
         ],
-        style={
-            "text-align": "center",
-        },
+        width = 6
     )
-    # layout for Artists/Genres section
+
+# layout for Artists/Genres section
     section = html.Div(
         [
-            dbc.Row(
+            dcc.Loading(
+                type = 'cube',
+                color ="#D0F0C0",
                 children=[
-                    sidebar_widgets,
-                    dbc.Col(
+                    dbc.Row(
                         children=[
-                            dbc.Row(children=[plot_1_settings]),
-                            dbc.Row(
+                            sidebar_widgets,
+                            dbc.Col(
                                 children=[
-                                    plot_2_settings,
-                                    plot_3_settings,
+                                    dbc.Row(children=[plot_1_settings]),
+                                    dbc.Row(
+                                        children=[
+                                            plot_2_settings,
+                                            plot_3_settings,
+                                        ]
+                                    ),
                                 ]
                             ),
                         ]
-                    ),
-                ]
+                    )
+                ],
             )
         ]
     )
@@ -169,16 +225,25 @@ def get_artist_section():
 # Song characteristics section
 def get_popularity_section():
     """
-    1 row x 2 columns
-    1st col - Widgets
-    2nd col - Plot
+    1 row x 2 columns:
+        col1 - Widgets
+        col2 - Plot
     """
     # layout for sidebar in Song characteristics
     sidebar_widgets = dbc.Col(
         children=[
-            html.H2("Explore music characteristics", className="display-30"),
+            html.H2("Music characteristics", className="display-30"),
+             html.H6([
+                "This section shows song characteristics for popular/not-popular songs of different genres.",
+                html.Br(),
+                html.Br(),
+                html.B('Popular: '), "Songs rated higher than median popularity.",
+                html.Br(),
+                html.B('Not popular: '), "Vice versa."],
+                className="display-30",
+            ),
             html.Br(),
-            html.H5("Music Features:"),
+            html.H5("Song characteristics:"),
             dcc.Dropdown(
                 id="xcol-widget",
                 style={"border-width": "0", "width": "100%"},
@@ -204,7 +269,7 @@ def get_popularity_section():
                 options=[
                     {
                         "label": "Electronic dance music",
-                        "value": "electronic dance music",
+                        "value": "edm",
                     },
                     {"label": "Pop", "value": "pop"},
                     {"label": "Rap", "value": "rap"},
@@ -212,7 +277,7 @@ def get_popularity_section():
                     {"label": "Latin", "value": "latin"},
                     {"label": "R&B", "value": "r&b"},
                 ],
-                value="electronic dance music",
+                value="edm",
             ),
             html.Iframe(
                 id="widget_id2",
@@ -228,28 +293,64 @@ def get_popularity_section():
     # layout for plot_4 in Song characteristics
     plot_4_settings = dbc.Col(
         [
-            html.H3(
-                "Song characteristics distribution between two popularity classes",
-                className="display-30",
-            ),
-            html.Iframe(
-                id="pop_unpop_id",
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H4(
+                            "Song characteristics between popularity classes",
+                            className="display-30",
+                        ),
+                    ),
+                    dbc.CardBody(
+                        html.Iframe(
+                            id="pop_unpop_id",
+                            style={
+                                "width": "80%",
+                                "height": "320px",
+                                "backgroundColor": "#F2F7F5",
+                            },
+                        )
+                    ),
+                ],
                 style={
                     "width": "100%",
-                    "height": "450px",
-                    "padding-left": "80px",
-                    "border": "0px",
+                    "height": "440px",
+                    "backgroundColor": "#F2F7F5",
+                    "border": "2px solid #FFFFFF",
+                    "border-radius": "5px",
+                    "text-align": "center",
                 },
-            ),
+            )
         ],
-        style={
-            "width": "100%",
-            "height": "520px",
-            "border": "0px",
-        },
     )
 
-    section = html.Div([dbc.Row(children=[sidebar_widgets, plot_4_settings])])
+    # section = html.Div(
+    #     [
+    #         dcc.Loading(
+    #             type = 'cube',
+    #             color = '#D0F0C0',
+    #             children=[dbc.Row(children=[sidebar_widgets, plot_4_settings])],
+    #         )
+    #     ]
+    # )
+
+    # layout for song characteristics section
+    section = html.Div(
+        [
+            dcc.Loading(
+                type = 'cube',
+                color ="#D0F0C0",
+                children=[
+                    dbc.Row(
+                        children=[
+                            sidebar_widgets,
+                            plot_4_settings,
+                        ]
+                    )
+                ],
+            )
+        ]
+    )
 
     return section
 
@@ -274,9 +375,38 @@ def get_tab_section():
     )
     return tab_section
 
+# Collapse (integrated into navbar below)--
+collapse = dbc.Row(
+     dbc.Button(
+            "About",
+            id="collapse-button",
+            className="mb-3",
+            outline=False,
+            style={'margin-top': '10px',
+                'width': '150px',
+                'background-color': '#0B6623',
+                'color': 'white'}
+        ), justify='end'
+)
 
-# Navbars (top) and footer (bottom)
-# layout for top
+collapse_bar = dbc.Row([
+    dbc.Col(
+        dbc.Collapse(
+            html.P([
+                    """This dataset comes from the spotifyr package and contains over 20,000 songs, 10,000 artists 
+                    and 6 main music genres on Spotify released up until 2020.""", html.Br(),  
+                    "This app is built on Dash, using Python packages and bootstrap components."],
+                    style={'color': '#0B6623', 'width': '100%', 'margin-left': '50px'}
+            ), 
+                id='collapse'),
+        md=8
+    ),
+    dbc.Col([collapse])
+]
+, style={'border-radius': 3, 'padding': 0, 'margin-right': 0}
+)
+
+# layout for Navbar
 navbar = dbc.Navbar(
     dbc.Container(
         [
@@ -284,16 +414,21 @@ navbar = dbc.Navbar(
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src=SPOTIFY_LOGO, height="50px")),
-                        dbc.Col(dbc.NavbarBrand("Spotify Explorer", className="py-10")),
+                        dbc.Col(dbc.NavbarBrand("Spotify Explorer", className="py-10"),
+                                style={'margin-left': '10px'})
+                        
                     ],
                     align="center",
                     className="g-0",
                     style=NAV_STYLE,
                 )
-            )
+            ),
+            dbc.Col(collapse_bar)
         ]
     )
 )
+
+
 # layout for footer
 container = dbc.Container(
     [
