@@ -98,27 +98,33 @@ def get_artist_section():
                         html.H4("Top Artists by Genre", className="display-30"),
                     ),
                     dbc.CardBody(
-                        html.Iframe(
-                            id="artist_genre_bar_id",
-                            style={
-                                "width": "80%",
-                                "height": "320px",
-                                "backgroundColor": "#F2F7F5",
-                            },
-                        )
+                        dcc.Loading(
+                            html.Iframe(
+                                id="artist_genre_bar_id",
+                                style={
+                                    "width": "80%",
+                                    "height": "320px",
+                                    "backgroundColor": "#F2F7F5",
+                                },
+                            ),
+                            type = 'cube',
+                            color = '#D0F0C0',
+                            fullscreen = True
+                    )
                     ),
                 ],
                 style={
                     "width": "100%",
                     "height": "400px",
                     "backgroundColor": "#F2F7F5",
-                    "border": "2px solid #000000",
+                    "border": "2px solid #FFFFFF",
                     "border-radius": "5px",
                     "text-align": "center",
                 },
             )
         ],
     )
+
     # layout for plot_2 on row 2 col 1
     plot_2_settings = dbc.Col(
         [
@@ -144,12 +150,13 @@ def get_artist_section():
                     "width": "110%",
                     "height": "410px",
                     "backgroundColor": "#F2F7F5",
-                    "border": "2px solid #000000",
+                    "border": "2px solid #FFFFFF",
                     "border-radius": "5px",
                     "text-align": "center",
                 },
             )
         ],
+        width = 6
     )
     # layout for plot_3 on row 2 col 2
     plot_3_settings = dbc.Col(
@@ -174,18 +181,21 @@ def get_artist_section():
                     "width": "100%",
                     "height": "410px",
                     "backgroundColor": "#F2F7F5",
-                    "border": "2px solid #000000",
+                    "border": "2px solid #FFFFFF",
                     "border-radius": "5px",
                     "text-align": "center",
                 },
             )
         ],
+        width = 6
     )
-    # layout for Artists/Genres section
+
+# layout for Artists/Genres section
     section = html.Div(
         [
             dcc.Loading(
-                type="cube",
+                type = 'cube',
+                color ="#D0F0C0",
                 children=[
                     dbc.Row(
                         children=[
@@ -296,7 +306,7 @@ def get_popularity_section():
                     "width": "100%",
                     "height": "440px",
                     "backgroundColor": "#F2F7F5",
-                    "border": "2px solid #000000",
+                    "border": "2px solid #FFFFFF",
                     "border-radius": "5px",
                     "text-align": "center",
                 },
@@ -307,7 +317,8 @@ def get_popularity_section():
     section = html.Div(
         [
             dcc.Loading(
-                type="cube",
+                type = 'cube',
+                color = '#D0F0C0',
                 children=[dbc.Row(children=[sidebar_widgets, plot_4_settings])],
             )
         ]
@@ -336,26 +347,60 @@ def get_tab_section():
     )
     return tab_section
 
+# Collapse (integrated into navbar below)--
+collapse = dbc.Row(
+     dbc.Button(
+            "About",
+            id="collapse-button",
+            className="mb-3",
+            outline=False,
+            style={'margin-top': '10px',
+                'width': '150px',
+                'background-color': '#0B6623',
+                'color': 'white'}
+        ), justify='end'
+)
 
-# Navbars (top) and footer (bottom)
-# layout for top
+collapse_bar = dbc.Row([
+    dbc.Col(
+        dbc.Collapse(
+            html.P([
+                    """This dataset comes from the spotifyr package and contains over 20,000 songs, 10,000 artists 
+                    and 6 main music genres on Spotify released up until 2020.""", html.Br(),  
+                    "This app is built on Dash, using Python packages and bootstrap components."],
+                    style={'color': '#0B6623', 'width': '100%', 'margin-left': '50px'}
+            ), 
+                id='collapse'),
+        md=8
+    ),
+    dbc.Col([collapse])
+]
+, style={'border-radius': 3, 'padding': 0, 'margin-right': 0}
+)
+
+# layout for Navbar
 navbar = dbc.Navbar(
     dbc.Container(
         [
             html.A(
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src=SPOTIFY_LOGO, height="58px")),
-                        dbc.Col(dbc.NavbarBrand("Spotify Explorer", className="py-10")),
+                        dbc.Col(html.Img(src=SPOTIFY_LOGO, height="50px")),
+                        dbc.Col(dbc.NavbarBrand("Spotify Explorer", className="py-10"),
+                                style={'margin-left': '10px'})
+                        
                     ],
                     align="center",
                     className="g-0",
                     style=NAV_STYLE,
                 )
-            )
+            ),
+            dbc.Col(collapse_bar)
         ]
     )
 )
+
+
 # layout for footer
 container = dbc.Container(
     [

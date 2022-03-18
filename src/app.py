@@ -19,16 +19,35 @@ df.dropna(inplace=True)
 # Set up app frontend
 app = Dash(
     __name__,
-    title="Spotify Explorer",
+    title="\nnn Spotify Explorer",
     # MORPH - another stylesheet
     external_stylesheets=[dbc.themes.MINTY],
     suppress_callback_exceptions=True,
 )
 
 server = app.server
+app.title = "Spotify explorer"
+
+# collapse button  ------
+
+@app.callback(
+    Output("collapse", "is_open"),
+    [Input("collapse-button", "n_clicks")],
+    [State("collapse", "is_open")],
+)
+def toggle_collapse(n, is_open):
+    """
+    Takes the output of collapse-button as an input if it the toggle
+    buton has clicked by the user shows the information,
+    """
+    if n:
+        return not is_open
+    return is_open
+
 
 app.title = "Spotify explorer"
 app.layout = html.Div([lc.navbar, lc.container], style={"backgroundColor": "#eeeeef"})
+
 
 # Tabs ----------
 
@@ -114,7 +133,9 @@ def top_artists(genre):
         )
         .add_selection(click)
         .properties(height=220, width=420)
-    ).configure(background="#F2F7F5", padding=10)
+    ).configure(background="#F2F7F5", padding=10).configure_axis(
+                                    titlePadding=10)
+
 
     return chart.to_html()
 
@@ -159,9 +180,11 @@ def artist_trend_plot(track_artist="Ed Sheeran"):
                 alt.Tooltip("track_album_release_date", title="Album Date"),
             ],
         )
-    ).properties(height=225, width=300)
+    ).properties(height=200, width=280)
 
-    chart = (c1 + c1.mark_point()).configure(background="#F2F7F5", padding=10)
+    chart = (c1 + c1.mark_point()).configure(background="#F2F7F5", padding=10).configure_axis(
+                                    titlePadding=10)
+
     # chart.properties(height=300, width=350, background='#eeeeef')
     return chart.to_html()
 
@@ -210,7 +233,9 @@ def artist_popularity_hist(track_artist="Ed Sheeran"):
     result = (
         (chart + rule)
         .configure(background="#F2F7F5", padding=10)
-        .properties(height=220, width=270)
+        .properties(height=180, width=250)
+        .configure_axis(titlePadding=10)
+
     )
     return result.to_html()
 
