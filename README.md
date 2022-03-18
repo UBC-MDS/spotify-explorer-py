@@ -2,9 +2,22 @@
 
 Spotify Explorer is a data visualization dashboard app (built on Dash) displaying insights and trends on Spotify's music, artists and song types. This app is made for anyone who's keen in discovering what lies underneath a vast data collected on Spotify's platform, be they music enthusiasts or music business executives.
 
+## Table of Contents
+
+- [The App](#the-app)
+  - [Motivation and Purpose](#motivation-and-purpose)
+  - [Dashboard description](#dashboard-description)
+  - [App Design](#app-design)
+  - [If you want to help further develop the app](#if-you-want-to-help-further-develop-the-app)
+  - [Run the app locally via Docker](#run-the-app-locally-via-docker)
+  - [Contributing](#contributing)
+  - [App Contributors](#app-contributors)
+  - [License](#license)
+
 ## The App
 
 You can access the dashboard app here: [Spotify Explorer](https://spotify-explorer-pop.herokuapp.com/)
+
 ## Motivation and Purpose
 
 Our purpose for developing this app can be branched into 2 main goals: to help others discover more about the artists, genres they care about and to help the music industry solve business problems with data. As music enthusiasts ourselves, we wanted to help fellow music fans understand more about their favourite artists, genres and song types. Furthermore, the app would be beneficial for music industry professionals who want to make business decisions on which artists and genres to develop their business in.
@@ -17,7 +30,7 @@ Below are just a couple of potential problem-solving scenarios to achieve these 
 
 ## Dashboard description
 
-The app contains 2 tabs that shows a total of four plots with sidebar widgets allowing users to control filtering 
+The app contains 2 tabs that shows a total of four plots with sidebar widgets allowing users to control filtering
 options for the plots.
 
 - **Top artists with an average popularity score (filtered by Genre)** <br>
@@ -29,25 +42,27 @@ Based on the artist chosen from the previous drop down list, this plot will show
 - **Popular Song Characteristics (filtered by Genre)** <br>
 Finally, a seperate drop down list for song characteristics help users choose from a list of attributes such as `loudness`, `danceability`, etc. The plot then shows the relationship of the chosen attribute with `popularity` through a scatter plot.
 
-
 ## App Design
 
-<img width="919" src="./img/dashboard_gif.gif">
-
+<img width="919" src="./img/py-demo.gif">
 
 ## If you want to help further develop the app
+
 1. Fork [the repository](https://github.com/UBC-MDS/spotify-explorer-py/)
 2. Set up conda environment as follows
+
 ```bash
-$ conda env create -f spotify.yml
-$ conda activate spotify-ex
+conda env create -f spotify.yml
+conda activate spotify-ex
 ```
-3. To run the app locally, run the following command from the root of this repository   
+
+3. To run the app locally, run the following command from the root of this repository
+
 ```python
 python src/app.py
 ```
-4. Create an issue on this repo to inform the Team about the changes/improvements you want to make. See **Contributing** section below for more details.
 
+4. Create an issue on this repo to inform the Team about the changes/improvements you want to make. See **Contributing** section below for more details.
 
 ## Run the app locally via Docker
 
@@ -56,7 +71,8 @@ If you wish to run our app using Docker, fork our repo and write the following c
 ```bash
 docker-compose up
 ```
-Finally, open the app at this URL: http://localhost:8000/
+
+Finally, open the app at this URL: <http://localhost:8000/>
 
 ## Contributing
 
@@ -64,12 +80,11 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 ## App Contributors
 
-- Christopher Alexander 
+- Christopher Alexander
 - Jennifer Hoang
 - Thea Wenxin
-- Michelle 
+- Michelle
 
 ## License
 
 `spotify-explorer-py` was created by Christopher Alexander, Jennifer Hoang, Thea Wenxin and Michelle Wang. It is licensed under the terms of the [MIT License](https://github.com/UBC-MDS/spotify-explorer-py/blob/main/LICENSE).
-
